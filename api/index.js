@@ -1,7 +1,3 @@
-const express = require('express');
-const path = require('path');
+import app from '../dist/index.js';
 
-// Import the built Express app
-const app = require('../dist/index.js').default || require('../dist/index.js');
-
-module.exports = app;
+export default app;
