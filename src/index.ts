@@ -398,3 +398,6 @@ app.get('/map', cache('15 minutes'), async (req: Request, res: Response) => {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
+// Export for Vercel serverless
+export default app;
