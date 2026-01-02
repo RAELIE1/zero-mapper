@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zero Mapper - Anime Mapping API</title>
+    <title>Zero Mapper - Anime & Movie Mapping API</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -21,6 +21,11 @@
         color: #c9d1d9;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         overflow-x: hidden;
+        user-select: none;
+      }
+
+      body::-webkit-scrollbar {
+        display: none;
       }
 
       .container {
@@ -639,7 +644,7 @@
     <div class="container">
       <header>
         <h1>Zero Mapper</h1>
-        <p class="subtitle">Anime Mapping & Streaming API</p>
+        <p class="subtitle">Anime & Movie Mapping and Streaming API</p>
       </header>
 
       <div class="main-content">
@@ -826,6 +831,113 @@
                 </div>
               </div>
 
+              <div class="route-item" onclick="toggleResponse('anicrush-mapper')">
+                <span class="route-method">GET</span>
+                <span class="route-path">/anicrush/mapper/:anilistId</span>
+              </div>
+              <div class="response-container" id="anicrush-mapper-response">
+                <div class="response-header">
+                  <span class="response-title">Example Response (Re:Zero - AniList ID: 21355)</span>
+                  <button class="btn-copy-inline" onclick="copyInline(event, 'anicrush-mapper-json')">
+                    <i class="fas fa-copy"></i> Copy
+                  </button>
+                </div>
+                <pre class="response-json" id="anicrush-mapper-json">{"anilist_id":"21355","anicrush_id":"ZTfb7l","title":{"romaji":"Re:Zero kara Hajimeru Isekai Seikatsu","english":"Re:ZERO -Starting Life in Another World-","native":"Re:ゼロから始める異世界生活","anicrush":"Re:Zero kara Hajimeru Isekai Seikatsu","anicrush_english":"Re:ZERO -Starting Life in Another World-"},"type":"TV","year":2016}</pre>
+              </div>
+
+              <div class="route-item" onclick="toggleResponse('anicrush-search')">
+                <span class="route-method">GET</span>
+                <span class="route-path">/anicrush/search?keyword=...</span>
+              </div>
+              <div class="response-container" id="anicrush-search-response">
+                <div class="response-header">
+                  <span class="response-title">Example Response (Search "Re:Zero")</span>
+                  <button class="btn-copy-inline" onclick="copyInline(event, 'anicrush-search-json')">
+                    <i class="fas fa-copy"></i> Copy
+                  </button>
+                </div>
+                <pre class="response-json" id="anicrush-search-json">{"status":true,"result":{"movies":[{"id":"ZTfb7l","name":"Re:Zero kara Hajimeru Isekai Seikatsu","name_english":"Re:ZERO -Starting Life in Another World-","thumbnail":"https://img.anicrush.to/poster/5e39c2e9a11ba5e39c2e9a11c2_mid.jpg","duration":"25 min","type":"TV","sub_count":25,"dub_count":25}],"pagination":{"current_page":1,"total_pages":1,"total_items":1}}}</pre>
+              </div>
+
+              <div class="route-item" onclick="toggleResponse('anicrush-episodes')">
+                <span class="route-method">GET</span>
+                <span class="route-path">/anicrush/episodes?movieId=...</span>
+              </div>
+              <div class="response-container" id="anicrush-episodes-response">
+                <div class="response-header">
+                  <span class="response-title">Example Response (Re:Zero - movieId: ZTfb7l)</span>
+                  <button class="btn-copy-inline" onclick="copyInline(event, 'anicrush-episodes-json')">
+                    <i class="fas fa-copy"></i> Copy
+                  </button>
+                </div>
+                <pre class="response-json" id="anicrush-episodes-json">{"status":true,"result":{"001 - 025":[{"id":4813,"name":"Hajimari no Owari to Owari no Hajimari","name_english":"The End of the Beginning and the Beginning of the End","number":1,"is_filler":0,"versions":{"DUB":[{"id":109761,"type":1,"server":"SH-1"}],"SUB":[{"id":434285,"type":0,"server":"SH-1"}]}},{"id":4814,"name":"Saikai no Majo","name_english":"Reunion with the Witch","number":2,"is_filler":0,"versions":{"DUB":[{"id":109762,"type":1,"server":"SH-1"}],"SUB":[{"id":434468,"type":0,"server":"SH-1"}]}}]}}</pre>
+              </div>
+
+              <div class="route-item" onclick="toggleResponse('anicrush-servers')">
+                <span class="route-method">GET</span>
+                <span class="route-path">/anicrush/servers/:movieId?episode=...</span>
+              </div>
+              <div class="response-container" id="anicrush-servers-response">
+                <div class="response-header">
+                  <span class="response-title">Example Response (Re:Zero Episode 1)</span>
+                  <button class="btn-copy-inline" onclick="copyInline(event, 'anicrush-servers-json')">
+                    <i class="fas fa-copy"></i> Copy
+                  </button>
+                </div>
+                <pre class="response-json" id="anicrush-servers-json">{"status":true,"result":{"servers":[{"id":4,"name":"Server HD-1","type":"sub"},{"id":5,"name":"Server HD-2","type":"sub"},{"id":6,"name":"Server HD-3","type":"dub"}]}}</pre>
+              </div>
+
+              <div class="route-item" onclick="toggleResponse('anicrush-sources')">
+                <span class="route-method">GET</span>
+                <span class="route-path">/anicrush/sources?movieId=...&episode=...</span>
+              </div>
+              <div class="response-container" id="anicrush-sources-response">
+                <div class="response-header">
+                  <span class="response-title">Example Response (Re:Zero Episode 1)</span>
+                  <button class="btn-copy-inline" onclick="copyInline(event, 'anicrush-sources-json')">
+                    <i class="fas fa-copy"></i> Copy
+                  </button>
+                </div>
+                <pre class="response-json" id="anicrush-sources-json">{"status":true,"result":{"link":"https://megacloud.blog/embed-2/v3/e-1/xxxxxxxx","server":4,"subOrDub":"sub"}}</pre>
+                <div class="note-container active">
+                  <strong>Parameters:</strong> <code>?movieId=ZTfb7l</code>, <code>?episode=1</code>, <code>?server=4</code>, <code>?subOrDub=sub|dub</code>
+                </div>
+              </div>
+
+              <div class="route-item" onclick="toggleResponse('anicrush-hls')">
+                <span class="route-method">GET</span>
+                <span class="route-path">/anicrush/hls/:movieId?episode=...</span>
+              </div>
+              <div class="response-container" id="anicrush-hls-response">
+                <div class="response-header">
+                  <span class="response-title">Example Response (Re:Zero Episode 1)</span>
+                  <button class="btn-copy-inline" onclick="copyInline(event, 'anicrush-hls-json')">
+                    <i class="fas fa-copy"></i> Copy
+                  </button>
+                </div>
+                <pre class="response-json" id="anicrush-hls-json">{"status":true,"result":{"sources":[{"file":"https://lightningspark77.pro/_v7/d1f0099662f682012dff4971ada02f3f.../master.m3u8","type":"hls"}],"tracks":[{"file":"https://mgstatics.xyz/subtitle/6b080a92677df8f3a35e272ed18f5316/6b080a92677df8f3a35e272ed18f5316.vtt","label":"English","kind":"captions","default":true}],"t":0,"intro":{"start":0,"end":0},"outro":{"start":0,"end":0},"server":4}}</pre>
+                <div class="note-container active">
+                  <strong>Parameters:</strong> <code>?episode=1</code>, <code>?server=4</code>, <code>?subOrDub=sub|dub</code>
+                </div>
+              </div>
+
+              <div class="route-item" onclick="toggleResponse('anicrush-combined')">
+                <span class="route-method">GET</span>
+                <span class="route-path">/anicrush/:anilistId/:episodeNum</span>
+              </div>
+              <div class="response-container" id="anicrush-combined-response">
+                <div class="response-header">
+                  <span class="response-title">Example Response (Re:Zero Episode 1 - Combined)</span>
+                  <button class="btn-copy-inline" onclick="copyInline(event, 'anicrush-combined-json')">
+                    <i class="fas fa-copy"></i> Copy
+                  </button>
+                </div>
+                <pre class="response-json" id="anicrush-combined-json">{"status":true,"result":{"sources":[{"file":"https://lightningspark77.pro/_v7/d1f0099662f682012dff4971ada02f3f.../master.m3u8","type":"hls"}],"tracks":[{"file":"https://mgstatics.xyz/subtitle/6b080a92677df8f3a35e272ed18f5316/6b080a92677df8f3a35e272ed18f5316.vtt","label":"English","kind":"captions","default":true}],"t":0,"intro":{"start":0,"end":0},"outro":{"start":0,"end":0},"server":4},"metadata":{"title":"Re:ZERO -Starting Life in Another World-","anilistId":21355,"movieId":"ZTfb7l","episode":1,"server":4,"subOrDub":"sub"}}</pre>
+                <div class="note-container active">
+                  <strong>Note:</strong> Direct endpoint from AniList ID to HLS stream. Parameters: <code>?server=4</code>, <code>?subOrDub=sub|dub</code>
+                </div>
+              </div>
+
               <div class="route-item" onclick="toggleResponse('map')">
                 <span class="route-method">GET</span>
                 <span class="route-path">/map?anilistId=... | /map?malId=... | /map?tmdbId=...</span>
@@ -838,6 +950,68 @@
                   </button>
                 </div>
                 <pre class="response-json" id="map-json">{"anilist":{"id":21355,"title":{"romaji":"Re:Zero kara Hajimeru Isekai Seikatsu","english":"Re:ZERO -Starting Life in Another World-","native":"Re:ゼロから始める異世界生活","userPreferred":"Re:Zero kara Hajimeru Isekai Seikatsu"},"format":"TV","episodes":25,"status":"FINISHED","year":2016,"score":81},"tmdb":{"id":65942,"title":"Re:ZERO -Starting Life in Another World-","mediaType":"tv","seasonNumber":1,"seasonName":"Season 1","splitCourPart":1,"releaseDate":"2016-04-04","overview":"Natsuki Subaru, an ordinary high school  student, is on his way home from the convenience store when he finds  himself transported to another world. As he's lost and confused in a new  world where he doesn't even know left from right, the only person to  reach out to him was a beautiful girl with silver hair. Determined to  repay her somehow for saving him from his own despair, Subaru agrees to  help the girl find something she's looking for.","score":1,"year":2016},"mal":{"id":31240,"title":"Re:Zero kara Hajimeru Isekai Seikatsu","alternativeTitles":{"synonyms":["Re: Life in a different world from zero","ReZero"],"en":"Re:ZERO -Starting Life in Another World-","ja":"Re:ゼロから始める異世界生活"},"mediaType":"tv","episodes":25,"status":"finished_airing","year":2016,"score":0.95},"animepahe":{"id":"888-Re:ZERO -Starting Life in Another World-","slug":"888","episodes":25},"hianime":{"id":"rezero-starting-life-in-another-world-212","slug":"rezero-starting-life-in-another-world-212","episodes":25},"animekai":{"id":"rezero-starting-life-in-another-world-k2np","url":"https://anikai.to/watch/rezero-starting-life-in-another-world-k2np","episodes":27},"animesama":{"slug":"re-zero","seasonSlug":"saison1","seasons":5}}</pre>
+              </div>
+
+              <div class="route-item" onclick="toggleResponse('flixhq-search')">
+                <span class="route-method">GET</span>
+                <span class="route-path">/flixhq/search?query=...</span>
+              </div>
+              <div class="response-container" id="flixhq-search-response">
+                <div class="response-header">
+                  <span class="response-title">Example Response (Search "Inception")</span>
+                  <button class="btn-copy-inline" onclick="copyInline(event, 'flixhq-search-json')">
+                    <i class="fas fa-copy"></i> Copy
+                  </button>
+                </div>
+                <pre class="response-json" id="flixhq-search-json">{"currentPage":1,"hasNextPage":false,"results":[{"id":"movie/inception-19764","title":"Inception","url":"https://myflixerz.to/movie/inception-19764","image":"https://f.woowoowoowoo.net/resize/250x400/2d/03/2d0304dfe44b3e7e2cccc313b7ec6104/2d0304dfe44b3e7e2cccc313b7ec6104.jpg","releaseDate":"2010","type":"MOVIE"},{"id":"movie/inception-the-cobol-job-7944","title":"Inception: The Cobol Job","url":"https://myflixerz.to/movie/inception-the-cobol-job-7944","image":"https://f.woowoowoowoo.net/resize/250x400/6f/f9/6ff9b9b3c7791803238868fc72c5c0e0/6ff9b9b3c7791803238868fc72c5c0e0.jpg","releaseDate":"2010","type":"MOVIE"}]}</pre>
+              </div>
+
+              <div class="route-item" onclick="toggleResponse('flixhq-info')">
+                <span class="route-method">GET</span>
+                <span class="route-path">/flixhq/info/:mediaId</span>
+              </div>
+              <div class="response-container" id="flixhq-info-response">
+                <div class="response-header">
+                  <span class="response-title">Example Response (Inception)</span>
+                  <button class="btn-copy-inline" onclick="copyInline(event, 'flixhq-info-json')">
+                    <i class="fas fa-copy"></i> Copy
+                  </button>
+                </div>
+                <pre class="response-json" id="flixhq-info-json">{"id":"movie/inception-19764","title":"Inception","url":"https://myflixerz.to/movie/inception-19764","cover":"https://f.woowoowoowoo.net/resize/250x400/2d/03/2d0304dfe44b3e7e2cccc313b7ec6104/2d0304dfe44b3e7e2cccc313b7ec6104.jpg","image":"https://f.woowoowoowoo.net/resize/250x400/2d/03/2d0304dfe44b3e7e2cccc313b7ec6104/2d0304dfe44b3e7e2cccc313b7ec6104.jpg","description":"Cobb, a proficient thief who devotes corporate espionage by devoting the subconscious of his targets exists a chance to regain his old life as payment for a task considered to be impossible:\"beginning\", the implantation of another person's idea into a target's subconscious.","type":"MOVIE","duration":"148\n                min","rating":8.8,"releaseDate":"2010-07-15","genres":["Action","Thriller","Science Fiction","Mystery","Adventure"],"casts":["Joseph Gordon-Levitt","Marc Raducci","Miranda Nolan","Marion Cotillard","Cillian Murphy"],"country":"United KingdomUnited States of America","production":"Legendary EntertainmentSyncopyWarner Bros. Pictures","recommendations":[{"id":"movie/inception-the-cobol-job-7944","title":"Inception: The Cobol Job","image":"https://f.woowoowoowoo.net/resize/250x400/6f/f9/6ff9b9b3c7791803238868fc72c5c0e0/6ff9b9b3c7791803238868fc72c5c0e0.jpg","duration":"15m","type":"MOVIE"}],"episodes":[{"id":"19764","title":"Inception","url":"https://myflixerz.to/ajax/movie/servers/19764"}]}</pre>
+              </div>
+
+              <div class="route-item" onclick="toggleResponse('movie')">
+                <span class="route-method">GET</span>
+                <span class="route-path">/movie/:tmdbId/:server?</span>
+              </div>
+              <div class="response-container" id="movie-response">
+                <div class="response-header">
+                  <span class="response-title">Example Response (TMDB ID: 27205 - Inception)</span>
+                  <button class="btn-copy-inline" onclick="copyInline(event, 'movie-json')">
+                    <i class="fas fa-copy"></i> Copy
+                  </button>
+                </div>
+                <pre class="response-json" id="movie-json">{"tmdbId":"27205","tmdbTitle":"Inception","tmdbPosterPath":"/xlaY2zyzMfkhk0HSC5VUwzoZPU1.jpg","tmdbBackdropPath":"/ii8QGacT3MXESqBckQlyrATY0lT.jpg","tmdbPosterUrl":"https://image.tmdb.org/t/p/w500/xlaY2zyzMfkhk0HSC5VUwzoZPU1.jpg","tmdbBackdropUrl":"https://image.tmdb.org/t/p/original/ii8QGacT3MXESqBckQlyrATY0lT.jpg","title":"Inception","image":"https://f.woowoowoowoo.net/resize/250x400/2d/03/2d0304dfe44b3e7e2cccc313b7ec6104/2d0304dfe44b3e7e2cccc313b7ec6104.jpg","description":"Cobb, a proficient thief who devotes corporate espionage by devoting the subconscious of his targets exists a chance to regain his old life as payment for a task considered to be impossible:\"beginning\", the implantation of another person's idea into a target's subconscious.","sources":[{"server":"upcloud","url":"https://stormgleam42.xyz/file2/H8PTUp+AbYvOhvJMsyHxGhnx5aGJOZ3jHC+RG5wxtFblGsVPhcH8wj9E6Hkfhm35Ato6yYnzkmtGFo0oySqBSnzEH4VRJtZy1jDuqqSk+UwdtFOxc~T3im3jQtQ67cWDKbYHB8d~zoD4oGV2s1aeZMZ61Ml59AD0hm7mtBUy3Yw=/cGxheWxpc3QubTN1OA==.m3u8","isM3U8":true,"quality":"auto","subtitles":[{"file":"https://cca.megafiles.store/12/47/12476dabd159d90720bf3db282c9f744/12476dabd159d90720bf3db282c9f744.vtt","label":"English","kind":"captions"}]},{"server":"megacloud","url":"https://f3.megacdn.co:2228/v3-hls-playback/1fc3d3529f806d8bce86f24cb321f11a19f1e5a189399de31c2f911b9c31b456e51ac54f85c1fcc23f44e8791f866df9f7d9844fcb4fc71ef3577ecfd012a4f6c4a5a72c2b0b5247221261de64e5b690fbb800e68f8301d608271098e7bfc2d951aa80ac38f83c24988ac30515175856e86d6c645e7a0b5ebb02ee80c180cd0179bcf767deadc97710c5d861925745b974ce2429af8475665a276ff1db0b0771e8eddd7918b3bab590ff0b0486b518f1b3f15398b11d6a0a81a9812ae71b63ac/playlist.m3u8","isM3U8":true,"quality":"auto","subtitles":[{"file":"https://cca.megafiles.store/12/47/12476dabd159d90720bf3db282c9f744/12476dabd159d90720bf3db282c9f744.vtt","label":"English","kind":"captions"}]}],"requestedServer":"all"}</pre>
+                <div class="note-container active">
+                  <strong>Note:</strong> Optional <code>:server</code> parameter to filter specific server (e.g., <code>/movie/27205/upcloud</code>)
+                </div>
+              </div>
+
+              <div class="route-item" onclick="toggleResponse('tv')">
+                <span class="route-method">GET</span>
+                <span class="route-path">/tv/:tmdbId/:season/:episode/:server?</span>
+              </div>
+              <div class="response-container" id="tv-response">
+                <div class="response-header">
+                  <span class="response-title">Example Response (Breaking Bad S1E1)</span>
+                  <button class="btn-copy-inline" onclick="copyInline(event, 'tv-json')">
+                    <i class="fas fa-copy"></i> Copy
+                  </button>
+                </div>
+                <pre class="response-json" id="tv-json">{"tmdbId":"1396","tmdbTitle":"Breaking Bad","tmdbPosterPath":"/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg","tmdbBackdropPath":"/vFxjuhENDjEKzWXUGKmRFct15bA.jpg","tmdbPosterUrl":"https://image.tmdb.org/t/p/w500/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg","tmdbBackdropUrl":"https://image.tmdb.org/t/p/original/vFxjuhENDjEKzWXUGKmRFct15bA.jpg","episodeName":"Pilot","title":"Breaking Bad","episode":"Eps 1: Pilot","season":1,"number":1,"image":"https://f.woowoowoowoo.net/resize/250x400/7a/78/7a78d2a44e33d64d6c35e1a2c1e2cdc9/7a78d2a44e33d64d6c35e1a2c1e2cdc9.jpg","description":"When an unassuming high school chemistry teacher discovers he has a rare form of lung cancer, he decides to team up with a former student and create a top of the line crystal meth in a used RV, to provide for his family once he is gone.","sources":[{"server":"upcloud","url":"https://dewshine74.xyz/file2/URvacNgbRRt9YqnSe2X1OhO1bexc2tfhNmwmKw4E4CCThu0kDGB9AV+DL2I84pcBiL79x0ntvPxkTnz6y16gd+ii9frl98+3CtLGWmmuifEDsVqW9JtyEwwCp5yw14oGPUJvQ40XBnQ1C2RHg8fJ7KmlfNclLalMfWHzormJjXg=/cGxheWxpc3QubTN1OA==.m3u8","isM3U8":true,"quality":"auto","subtitles":[{"file":"https://cca.megafiles.store/71/2f/712f5baeee18cc27fc6ce46f93c0cbf6/eng-7.vtt","label":"English","kind":"captions","default":true}]},{"server":"megacloud","url":"https://f9.megacdn.co:2228/v3-hls-playback/511bda70d81b451b7d62a9d27b65f53a13b56dec5cdad7e1366c262b0e04e0209386ed240c607d015f832f623ce29701712a4b6b392a47d28c4eee93c729462b72a5da89d00e9234be89261b640da25a349f3eb67a8607c090457d97e9bd601bd3dab89d7a358ef56c6fc1637ef4df72a862da8d420b946e8aedceea65cc638237ea33adfecb15520c2e2086354a070f1c68359be84308fe7533e483e913c2ba0acc8e5d32af2fe71954ba0449d496642b27dc1e16455c4be9169d582d17eb65/playlist.m3u8","isM3U8":true,"quality":"auto","subtitles":[{"file":"https://cca.megafiles.store/71/2f/712f5baeee18cc27fc6ce46f93c0cbf6/eng-7.vtt","label":"English","kind":"captions","default":true}]}],"requestedServer":"all"}</pre>
+                <div class="note-container active">
+                  <strong>Note:</strong> Optional <code>:server</code> parameter to filter specific server (e.g., <code>/tv/1396/1/1/vidcloud</code>)
+                </div>
               </div>
             </div>
           </div>
